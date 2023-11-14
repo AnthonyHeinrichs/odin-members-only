@@ -60,7 +60,15 @@ app.use(passport.session());
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index", { user: req.user }));
+
+app.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/"
+  })
+);
 
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
