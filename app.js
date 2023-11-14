@@ -60,6 +60,11 @@ app.use(passport.session());
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.get("/", (req, res) => res.render("index", { user: req.user }));
 
 app.post(
@@ -69,6 +74,15 @@ app.post(
     failureRedirect: "/"
   })
 );
+
+app.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/")
+  });
+});
 
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
