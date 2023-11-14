@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -31,7 +32,9 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Username does not exist" });
       };
-      if (user.password !== password) {
+
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
         return done(null, false, { message: "Incorrect password" });
       };
       return done(null, user);
@@ -88,12 +91,19 @@ app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
 app.post("/sign-up", async(req, res, next) => {
   try {
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password
-    });
-    const result = await user.save();
-    res.redirect("/")
+    if (err) {
+      return next(err);
+    }
+
+    bcyrpt.hash(req.body.password, 10, async (err, hashedPassword) => {
+      const user = new User({
+        username: req.body.username,
+        password: hashedPassword
+      });
+
+      const result = await user.save();
+      res.redirect("/")
+    })  
   } catch(err) {
     return next(err);
   };
