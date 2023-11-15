@@ -6,6 +6,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
+// Displaying user sign up form on get
+exports.user_sign_up_get = asyncHanlder(async (req, res, next) => {
+  res.render("/sign-up");
+})
+
 // Handling user creation on post
 exports.user_create_post = [
   body("name")

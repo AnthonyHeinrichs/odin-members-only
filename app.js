@@ -18,7 +18,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
 // Set up view engine
-app.set("views", __dirname);
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 passport.serializeUser((user, done) => {
@@ -76,8 +76,6 @@ app.get("/log-out", (req, res, next) => {
     res.redirect("/")
   });
 });
-
-app.get("/sign-up", (req, res) => res.render("sign-up-form"));
 
 app.use('/', indexRouter);
 
