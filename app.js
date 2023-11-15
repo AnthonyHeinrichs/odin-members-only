@@ -3,7 +3,11 @@ const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const helmet = require('helmet');
+const RateLimit = require('express-rate-limit');
 require('dotenv').config()
+
+const indexRouter = require('./routes/index');
 
 const app = express()
 
@@ -41,7 +45,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => res.render("index", { user: req.user }));
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
 
 app.post(
   "/log-in",
@@ -61,5 +78,24 @@ app.get("/log-out", (req, res, next) => {
 });
 
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
+
+app.use('/', indexRouter);
+
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+// error handler
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 404);
+  res.render("404");
+});
+
 
 app.listen(3000, () => console.log("App listening on port 3000"));

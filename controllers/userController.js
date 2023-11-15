@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
-const { hashPassword } = require("../utils/passwordUtils");
+const { hashPassword, checkPasswordValidity } = require("../utils/passwordUtils");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
@@ -50,8 +50,7 @@ exports.user_login_check = [
         if (!user) {
           return done(null, false, { message: "Username does not exist" });
         };
-  
-        const match = await bcrypt.compare(password, user.password);
+        const match = await checkPasswordValidity(password, user.password);
         if (!match) {
           return done(null, false, { message: "Incorrect password" });
         };
