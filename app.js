@@ -1,11 +1,8 @@
 const express = require("express");
 const path = require("path");
-const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 require('dotenv').config()
 
 const app = express()
@@ -19,25 +16,6 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 // Set up view engine
 app.set("views", __dirname);
 app.set("view engine", "ejs");
-
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const user = await User.findOne({ username: username });
-      if (!user) {
-        return done(null, false, { message: "Username does not exist" });
-      };
-
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-        return done(null, false, { message: "Incorrect password" });
-      };
-      return done(null, user);
-    } catch(err) {
-      return done(err);
-    };
-  })
-);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -83,25 +61,5 @@ app.get("/log-out", (req, res, next) => {
 });
 
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
-
-app.post("/sign-up", async(req, res, next) => {
-  try {
-    if (err) {
-      return next(err);
-    }
-
-    bcyrpt.hash(req.body.password, 10, async (err, hashedPassword) => {
-      const user = new User({
-        username: req.body.username,
-        password: hashedPassword
-      });
-
-      const result = await user.save();
-      res.redirect("/")
-    })  
-  } catch(err) {
-    return next(err);
-  };
-})
 
 app.listen(3000, () => console.log("App listening on port 3000"));
