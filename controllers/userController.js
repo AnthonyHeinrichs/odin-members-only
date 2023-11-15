@@ -1,9 +1,9 @@
 const User = require("../models/user");
+const createError = require('http-errors');
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const { hashPassword, checkPasswordValidity } = require("../utils/passwordUtils");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
 // Displaying user sign up form on get
@@ -13,7 +13,7 @@ exports.user_sign_up_get = (req, res, next) => {
 
 // Handling user creation on post
 exports.user_create_post = [
-  body("name")
+  body("username")
     .trim()
     .isLength({ min: 1 })
     .escape()
@@ -22,27 +22,23 @@ exports.user_create_post = [
     .isLength({ min: 3 })
     .withMessage("Password is required"),
 
-    asyncHandler(async (req, res, next) => {
-      const errors = validationResult(req);
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const hashedPassword = await hashPassword(req.body.password);
+
+    const user = new User({
+      username: req.body.username,
+      password: hashedPassword,
+    });
   
     if (!errors.isEmpty()) {
-      res.render("sign_up_form");
+      res.render("sign-up");
       return;
-    }
-
-    try {
-      const hashedPassword = await hashPassword(req.body.password);
-
-      const user = new User({
-        username: req.body.username,
-        password: hashedPassword,
-      });
-
+    } else {
       await user.save();
       res.redirect("/");
-    } catch (error) {
-      next(error);
-    }
+    };
   }),
 ];
 
