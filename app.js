@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const logger = require('morgan');
 const session = require("express-session");
 const passport = require("passport");
 const mongoose = require("mongoose");
@@ -8,6 +9,7 @@ const RateLimit = require('express-rate-limit');
 require('dotenv').config()
 
 const indexRouter = require('./routes/index');
+const userRouter = require('./routes/users');
 
 const app = express()
 
@@ -34,6 +36,7 @@ passport.deserializeUser(async (id, done) => {
   };
 });
 
+app.use(logger('dev'));
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -77,7 +80,7 @@ app.get("/log-out", (req, res, next) => {
   });
 });
 
-app.use('/', indexRouter);
+app.use('/', indexRouter, userRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
