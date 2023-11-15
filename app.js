@@ -8,20 +8,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 require('dotenv').config()
 
+const app = express()
+
+// Set up mongoose connection
 const mongoDb = process.env.MONGO_CONNECTION_STRING;
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
-const User = mongoose.model(
-  "User",
-  new Schema({
-    username: { type: String, required: true},
-    password: { type: String, required: true }
-  })
-);
-
-const app = express()
+// Set up view engine
 app.set("views", __dirname);
 app.set("view engine", "ejs");
 
