@@ -36,6 +36,10 @@ passport.deserializeUser(async (id, done) => {
   };
 });
 
+// Setup public folder
+app.use(express.static(__dirname + '/public'));
+
+// Setup logging & authentication services
 app.use(logger('dev'));
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
