@@ -1,14 +1,9 @@
-<% const renderMessages = (value) => { %>
-  <div style="display: block;">
-      <h1>Message <%= value %></h1>
-  </div>
-<% } %>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/app.js" defer></script>
   <title>Members only</title>
 </head>
 <body>
@@ -27,8 +22,8 @@
   <%}%>
   
   <div class="nav_buttons">
-    <button class="button1">Button 1</button>
-    <button class="button2">Button 2</button>
+    <button id="button1">Sign In</button>
+    <button id="button2">Sign Up</button>
   </div>
   <div class="center">
     <div class="main_top">
@@ -38,10 +33,17 @@
       <h1 class="main_header__text">Members Only</h1>
     </div>
     <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
+    <button>Add new message</button>
     <div class="messages">
-      <% for (let i = 1; i <= 5; i++) { %>
-        <%= renderMessages(i); %>
+      <% for (let i = 1; i <= 10; i++) { %>
+        <%- include('./partials/messages.ejs', {value: i}); %>
       <% } %>
+    </div>
+  </div>
+
+  <div class="sign_up">
+    <div class="sign_up__modal hidden">
+
     </div>
   </div>
 </body>
