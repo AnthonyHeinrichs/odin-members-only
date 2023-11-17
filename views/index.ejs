@@ -6,21 +6,7 @@
   <script src="/js/app.js" defer></script>
   <title>Members only</title>
 </head>
-<body>
-  <% if (user) {%>
-    <h1>Welcome back <%= user.username %></h1>
-    <a href="/log-out">Log out</a>
-  <% } else { %>
-    <h1>please log in</h1>
-    <form action="/log-in" method="POST">
-      <label for="username">Username</label>
-      <input name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input name="password" type="password" />
-      <button>Log In</button>
-    </form>
-  <%}%>
-  
+<body> 
   <div class="nav_buttons">
     <button id="button1">Sign In</button>
     <button id="button2">Sign Up</button>
@@ -32,7 +18,12 @@
     <div class="main_header">
       <h1 class="main_header__text">Members Only</h1>
     </div>
-    <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
+    <% if (user) {%>
+      <p>Welcome back <%= user.username %></p>
+      <a href="/log-out">Log out</a>
+    <% } else { %>
+      <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
+    <%}%>
     <button>Add new message</button>
     <div class="messages">
       <% for (let i = 1; i <= 10; i++) { %>
@@ -40,10 +31,14 @@
       <% } %>
     </div>
   </div>
-
   <div class="sign_up">
     <div class="sign_up__modal hidden">
-
+      <%- include('./partials/sign-up-modal.ejs')%>
+    </div>
+  </div>
+  <div class="sign_in">
+    <div class="sign_in__modal hidden">
+      <%- include('./partials/sign-in-modal.ejs')%>
     </div>
   </div>
 </body>
