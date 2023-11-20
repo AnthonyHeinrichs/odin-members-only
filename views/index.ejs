@@ -14,8 +14,8 @@
     <div class="main_header">
       <h1 class="main_header__text">Members Only</h1>
       <div class="nav_buttons">
-        <button id="button1">Sign In</button>
-        <button id="button2">Sign Up</button>
+        <button id="sign_in_btn">Sign In</button>
+        <button id="sign_up_btn">Sign Up</button>
       </div>
     </div>
     <% if (user) {%>
@@ -31,15 +31,11 @@
       <% } %>
     </div>
   </div>
-  <div class="sign_up">
-    <div class="sign_up__modal hidden">
-      <%- include('./partials/sign-up-modal.ejs')%>
-    </div>
+  <div class="sign_up__modal" id="sign_up">
+    <%- include('./partials/sign-up-modal.ejs')%>
   </div>
-  <div class="sign_in">
-    <div class="sign_in__modal hidden">
-      <%- include('./partials/sign-in-modal.ejs')%>
-    </div>
+  <div class="sign_in__modal" id="sign_in">
+    <%- include('./partials/sign-in-modal.ejs')%>
   </div>
 </body>
 </html>
