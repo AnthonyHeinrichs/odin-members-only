@@ -7,16 +7,16 @@
   <title>Members only</title>
 </head>
 <body> 
-  <div class="nav_buttons">
-    <button id="button1">Sign In</button>
-    <button id="button2">Sign Up</button>
-  </div>
   <div class="center">
     <div class="main_top">
       <img class="main_top__icons" src="images/memberboxicons.png" alt="box_icons">
     </div>
     <div class="main_header">
       <h1 class="main_header__text">Members Only</h1>
+      <div class="nav_buttons">
+        <button id="button1">Sign In</button>
+        <button id="button2">Sign Up</button>
+      </div>
     </div>
     <% if (user) {%>
       <p>Welcome back <%= user.username %></p>
