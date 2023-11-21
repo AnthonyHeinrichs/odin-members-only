@@ -1,6 +1,7 @@
 const User = require("./models/user");
 const Message = require("./models/message");
 const express = require("express");
+const asyncHandler = require("express-async-handler");
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
@@ -69,7 +70,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => res.render("index", { user: req.user }));
+app.use(asyncHandler(async (req, res, next) => {
+  const messages = await Message.find().exec();
+  req.messages = messages; 
+  next();
+}));
+
+app.get("/", (req, res) => {
+  res.render("index", { user: req.user, messages: req.messages }, console.log(req.messages));
+});
 
 app.post(
   "/log-in",
