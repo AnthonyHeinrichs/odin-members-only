@@ -87,3 +87,11 @@ body {
   border: 1px solid #888;
   width: 50%; 
 }
+
+.message {
+  display: flex;
+}
+
+.no_name, .no_date, .no_time {
+  filter: blur(8px);
+}

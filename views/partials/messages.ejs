@@ -1,2 +1,16 @@
-<h1><%=messages[index].name%></h1>
-<h3><%=messages[index].message%></h3>
+<div class="message">
+  <div>
+    <% if (user) {%>
+      <h1 class="message_name"><%=messages[index].name%>:</h1>
+      <h3 class="message_date">Dec 31, 1999</h3>
+      <h3 class="message_time">23:59 UTC</h3>
+    <% } else { %>
+      <h1 class="no_name">Some random:</h1>
+      <h3 class="no_date">Dec 31, 1999</h3>
+      <h3 class="no_time">23:59 UTC</h3>
+    <% } %>
+  </div>
+  <div class="message_text">
+    <h3><%=messages[index].message%></h3>
+  </div>
+</div>

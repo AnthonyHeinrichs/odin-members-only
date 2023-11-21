@@ -31,7 +31,7 @@
     <%}%>
     <div class="messages">
       <% for (let i = 0; i < messages.length; i++) { %>
-        <%- include('./partials/messages.ejs', {index: i, messages: messages}); %>
+        <%- include('./partials/messages.ejs', {index: i, messages: messages, user: user}); %>
       <% } %>
     </div>
   </div>
