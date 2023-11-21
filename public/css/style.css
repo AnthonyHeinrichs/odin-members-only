@@ -6,6 +6,15 @@ body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
+p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .main_top {
   height: 18px;
   width: 340px;
@@ -53,7 +62,7 @@ body {
 }
 
 .messages {
-  width: 50vw;
+  width: 75vw;
   min-height: 200px;
   background-color: #fff;
   box-shadow: 9px 7px 0px 0px #000000;
@@ -67,6 +76,20 @@ body {
   border-radius: 5px;
 }
 
+.log_out {
+  display: block;
+  width: 60px;
+  height: 12px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  padding: 8px;
+  border-radius: 5px;
+  color: #000000;
+  text-align: center;
+  text-decoration: none;
+  line-height: 12px;
+}
+
 .sign_up__modal, .sign_in__modal {
   display: none; 
   position: fixed; 
@@ -78,6 +101,13 @@ body {
   overflow: auto; 
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.sign_in_name {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 8px 0px 0px;
+  padding-bottom: 0px;
 }
 
 .sign_up__content, .sign_in__content {

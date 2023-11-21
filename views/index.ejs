@@ -14,6 +14,9 @@
     <div class="main_header">
       <h1 class="main_header__text">Members Only</h1>
     <% if (user) {%>
+      <div class="center">
+        <a href="/log-out" class="log_out">Log out</a>
+      </div>
     <% } else { %>
       <div class="nav_buttons">
         <button id="sign_in_btn">Sign In</button>
@@ -22,14 +25,16 @@
     <%}%>
     </div>
     <% if (user) {%>
-      <p>Welcome back <%= user.username %></p>
-      <a href="/log-out">Log out</a>
-      <button id="new_message_btn">Add new message</button>
       <%- include('./partials/message-form.ejs')%>
     <% } else { %>
       <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
     <%}%>
     <div class="messages">
+    <% if (user) {%>
+      <div class="sign_in_name">
+        <p>Signed in as <span class="bold"><%= user.username %></span></p>
+      </div>
+    <%}%>
       <% for (let i = 0; i < messages.length; i++) { %>
         <%- include('./partials/messages.ejs', {index: i, messages: messages, user: user}); %>
       <% } %>

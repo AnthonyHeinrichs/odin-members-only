@@ -77,7 +77,7 @@ app.use(asyncHandler(async (req, res, next) => {
 }));
 
 app.get("/", (req, res) => {
-  res.render("index", { user: req.user, messages: req.messages }, console.log(req.messages));
+  res.render("index", { user: req.user, messages: req.messages });
 });
 
 app.post(
