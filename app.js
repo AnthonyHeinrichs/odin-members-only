@@ -7,7 +7,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const hashPassword = require("./utils/passwordUtils")
-const Schema = mongoose.Schema;
 
 require('dotenv').config()
 
@@ -96,7 +95,7 @@ app.post("/sign-up", async(req, res, next) => {
       username: req.body.username,
       password: hashedPassword
     });
-    
+
     const result = await user.save();
   
     req.login(user, (err) => {

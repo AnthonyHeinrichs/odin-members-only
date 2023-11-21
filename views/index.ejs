@@ -24,10 +24,10 @@
     <% if (user) {%>
       <p>Welcome back <%= user.username %></p>
       <a href="/log-out">Log out</a>
+      <button>Add new message</button>
     <% } else { %>
       <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
     <%}%>
-    <button>Add new message</button>
     <div class="messages">
       <% for (let i = 1; i <= 10; i++) { %>
         <%- include('./partials/messages.ejs', {value: i}); %>
