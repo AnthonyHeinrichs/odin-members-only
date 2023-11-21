@@ -9,13 +9,4 @@ const hashPassword = async (password) => {
   }
 };
 
-const checkPasswordValidity = async (password, userPassword) => {
-  try {
-    const match = bcrypt.compare(password, user.password)
-    return match;
-  } catch (error) {
-    throw error;
-  }
-}
-
-module.exports = { hashPassword, checkPasswordValidity };
+module.exports = hashPassword;

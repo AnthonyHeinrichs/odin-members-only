@@ -1,15 +1,15 @@
+const User = require("./models/user");
 const express = require("express");
 const path = require("path");
-const logger = require('morgan');
+const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const helmet = require('helmet');
-const RateLimit = require('express-rate-limit');
-require('dotenv').config()
+const hashPassword = require("./utils/passwordUtils")
+const Schema = mongoose.Schema;
 
-const indexRouter = require('./routes/index');
-const userRouter = require('./routes/users');
+require('dotenv').config()
 
 const app = express()
 
@@ -22,6 +22,25 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 // Set up view engine
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: "Username does not exist" });
+      };
+
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        return done(null, false, { message: "Incorrect password" });
+      };
+      return done(null, user);
+    } catch(err) {
+      return done(err);
+    };
+  })
+);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -39,8 +58,6 @@ passport.deserializeUser(async (id, done) => {
 // Setup public folder
 app.use(express.static(__dirname + '/public'));
 
-// Setup logging & authentication services
-app.use(logger('dev'));
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -52,20 +69,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
-});
-// Apply rate limiter to all requests
-app.use(limiter);
-
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
-    },
-  }),
-);
+app.get("/", (req, res) => res.render("index", { user: req.user }));
 
 app.post(
   "/log-in",
@@ -84,23 +88,19 @@ app.get("/log-out", (req, res, next) => {
   });
 });
 
-app.use('/', indexRouter, userRouter);
+app.post("/sign-up", async(req, res, next) => {
+  const hashedPassword = await hashPassword(req.body.password);
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404));
+  try {
+    const user = new User({
+      username: req.body.username,
+      password: hashedPassword
+    });
+    const result = await user.save();
+    res.redirect("/")
+  } catch(err) {
+    return next(err);
+  };
 });
-
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 404);
-  res.render("404");
-});
-
 
 app.listen(3000, () => console.log("App listening on port 3000"));
