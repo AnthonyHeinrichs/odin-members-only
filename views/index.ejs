@@ -24,7 +24,8 @@
     <% if (user) {%>
       <p>Welcome back <%= user.username %></p>
       <a href="/log-out">Log out</a>
-      <button>Add new message</button>
+      <button id="new_message_btn">Add new message</button>
+      <%- include('./partials/message-form.ejs')%>
     <% } else { %>
       <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
     <%}%>
