@@ -1,4 +1,5 @@
 const User = require("./models/user");
+const Message = require("./models/message");
 const express = require("express");
 const path = require("path");
 const bcrypt = require("bcryptjs");
@@ -108,5 +109,24 @@ app.post("/sign-up", async(req, res, next) => {
       return next(err);
   }
 });
+
+app.post("/new-message", async(req, res, next) => {
+  const date = new Date();
+  
+  try {
+    const message = new Message({
+      name: req.user.username,
+      time: date,
+      message: req.body.message,
+    });
+
+    const result = await message.save();
+  
+    return res.redirect("/");
+
+  } catch (err) {
+      return next(err);
+  }
+})
 
 app.listen(3000, () => console.log("App listening on port 3000"));
