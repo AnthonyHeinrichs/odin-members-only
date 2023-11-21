@@ -6,7 +6,7 @@ body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
-p {
+p, h1, h2 {
   padding: 0px;
   margin: 0px;
 }
@@ -120,6 +120,20 @@ p {
 
 .message {
   display: flex;
+  margin-left: 12px;
+}
+
+.date_and_time {
+  margin-top: 4px;
+}
+
+.message_date, .message_time {
+  margin-left: 4px;
+}
+
+.message_text {
+  margin-top: 6px;
+  margin-left: 36px;
 }
 
 .no_name, .no_date, .no_time {

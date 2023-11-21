@@ -125,6 +125,7 @@ app.post("/new-message", async(req, res, next) => {
   try {
     const message = new Message({
       name: req.user.username,
+      date: date,
       time: date,
       message: req.body.message,
     });
