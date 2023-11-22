@@ -2,6 +2,7 @@ const User = require("./models/user");
 const Message = require("./models/message");
 const express = require("express");
 const asyncHandler = require("express-async-handler");
+const { validationResult, body } = require('express-validator');
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
@@ -97,27 +98,63 @@ app.get("/log-out", (req, res, next) => {
   });
 });
 
-app.post("/sign-up", async(req, res, next) => {
-  const hashedPassword = await hashPassword(req.body.password);
+app.post(
+  '/sign-up',
+  [
+    // Validate username
+    body('username')
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage('Username must be at least 1 character'),
 
-  try {
-    const user = new User({
-      username: req.body.username,
-      password: hashedPassword
-    });
+    // Validate password
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage('Password must be at least 6 characters')
+      .matches(/^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/)
+      .withMessage('Password must contain at least one special character'),
 
-    const result = await user.save();
-  
-    req.login(user, (err) => {
-    if (err) {
+    // Validate passcode (you can adjust this validation as needed)
+    body('passcode')
+      .custom((value, { req }) => {
+        if (value !== 'bananas') {
+          throw new Error('Invalid passcode');
+        }
+        return true;
+      })
+      .withMessage('Invalid passcode'),
+  ],
+  async (req, res, next) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+
+    // If there are any error messages, return them as JSON
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    // If validation passes, proceed with creating the user
+    const hashedPassword = await hashPassword(req.body.password);
+
+    try {
+      const user = new User({
+        username: req.body.username,
+        password: hashedPassword,
+      });
+
+      const result = await user.save();
+
+      req.login(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        return res.json({ success: true, message: 'User created successfully' });
+      });
+    } catch (err) {
       return next(err);
     }
-    return res.redirect("/");
-    });
-  } catch (err) {
-      return next(err);
   }
-});
+);
 
 app.post("/new-message", async(req, res, next) => {
   const date = new Date();
