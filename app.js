@@ -1,5 +1,3 @@
-const User = require("./models/user");
-const Message = require("./models/message");
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const { validationResult, body } = require('express-validator');
@@ -10,6 +8,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const hashPassword = require("./utils/passwordUtils")
+
+// Bring in models
+const User = require("./models/user");
+const Message = require("./models/message");
+const Passcode = require('./models/passcode'); 
 
 require('dotenv').config()
 
@@ -37,6 +40,7 @@ passport.use(
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
       };
+
       return done(null, user);
     } catch(err) {
       return done(err);
@@ -114,16 +118,25 @@ app.post(
       .matches(/^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/)
       .withMessage('Password must contain at least one special character'),
 
-    // Validate passcode (you can adjust this validation as needed)
+    // Validate passcode
     body('passcode')
-      .custom((value, { req }) => {
-        if (value !== 'bananas') {
-          throw new Error('Invalid passcode');
+      .custom(async (value, { req }) => {
+        try {
+          // Query the database for the passcode
+          const passcodeDoc = await Passcode.findOne({ passcode: value });
+    
+          if (!passcodeDoc) {
+            throw new Error('Invalid passcode');
+          }
+    
+          return true;
+        } catch (error) {
+          throw new Error('Error checking passcode');
         }
-        return true;
       })
       .withMessage('Invalid passcode'),
   ],
+  
   async (req, res, next) => {
     // Check for validation errors
     const errors = validationResult(req);

@@ -63,7 +63,19 @@ p, h1, h2 {
 }
 
 .message_form_content {
+  margin-top: 12px;
   width: 75vw;
+}
+
+.message_box {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.new_message_btn_div {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 
 .messages {
