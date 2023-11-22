@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema({
   name: { type: String, required: true},
   date: { type: Date },
-  time: { type: Date },
   message: { type: String, required: true }
 })
 
@@ -16,8 +15,8 @@ MessageSchema.virtual("date_formatted").get(function () {
 });
 
 MessageSchema.virtual("time_formatted").get(function () {
-  return this.time ?
-    DateTime.fromJSDate(this.time).setZone('Europe/Paris').toFormat("HH:mm 'CET'") : '';
+  return this.date ?
+    DateTime.fromJSDate(this.date).setZone('Europe/Paris').toFormat("HH:mm 'CET'") : '';
 });
 
 module.exports = mongoose.model("Message", MessageSchema);

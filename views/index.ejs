@@ -24,18 +24,18 @@
       </div>
     <%}%>
     </div>
-    <% if (user) {%>
-      <%- include('./partials/message-form.ejs')%>
-    <% } else { %>
-      <p>Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
-    <%}%>
+  <% if (user) {%>
+    <%- include('./partials/message-form.ejs')%>
+  <% } else { %>
+    <p class="support_message">Only members who have signed up with the correct pass code can see who wrote the messages and when </p>
+  <%}%>
     <div class="messages">
     <% if (user) {%>
       <div class="sign_in_name">
         <p>Signed in as <span class="bold"><%= user.username %></span></p>
       </div>
     <%}%>
-      <% for (let i = 0; i < messages.length; i++) { %>
+      <% for (let i = messages.length - 1; i >= 0; i--) { %>
         <%- include('./partials/messages.ejs', {index: i, messages: messages, user: user}); %>
       <% } %>
     </div>
