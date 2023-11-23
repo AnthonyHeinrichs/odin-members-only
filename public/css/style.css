@@ -123,6 +123,11 @@ p, h1, h2 {
 
 /* Forms */
 
+#sign_up_form {
+  width: 80%;
+  margin: 12px auto;
+}
+
 .sign_up__content {
   display: flex;
   flex-direction: column;
@@ -133,6 +138,11 @@ p, h1, h2 {
   display: flex;
   margin-top: 8px;
   gap: 12px;
+}
+
+.username_password > input {
+  flex: 1;
+  max-width: calc(50% - 6px);
 }
 
 .passcode_input {
