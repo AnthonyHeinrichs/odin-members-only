@@ -1,12 +1,13 @@
 <div class="sign_up__content">
-  <h1>Sign up</h1>
+  <h1 class="sign_up_title">Sign up</h1>
   <form action="/sign-up" id="sign_up_form" method="POST">
-    <label for="username">Username</label>
-    <input type="text" name="username" placeholder="username" />
-    <label for="password">Password</label>
-    <input type="password" name="password" />
-    <label for="passcode">Passcode</label>
-    <input type="password" name="passcode" />
-    <button>Sign Up</button>
+    <div class="username_password">
+      <input type="text" name="username" placeholder="Username" />
+      <input type="password" name="password" placeholder="Password" />
+    </div>
+    <div class="passcode_input">
+      <input class="passcode" type="password" name="passcode" placeholder="Passcode" />
+    </div>
+    <button class="sign_up_post_btn">Sign Up</button>
   </form>
 </div>

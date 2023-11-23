@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
 
+/* Main app styles */
 
 body {
   background-color: #F5BE49;
@@ -14,6 +15,9 @@ p, h1, h2 {
 .bold {
   font-weight: bold;
 }
+
+
+/* Header & title */
 
 .main_top {
   margin-top: 24px;
@@ -62,37 +66,6 @@ p, h1, h2 {
   align-items: center;
 }
 
-.message_form_content {
-  margin-top: 12px;
-  width: 75vw;
-}
-
-.message_box {
-  margin-top: 12px;
-  width: 100%;
-}
-
-.new_message_btn_div {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12px;
-}
-
-.messages {
-  width: 75vw;
-  min-height: 200px;
-  background-color: #fff;
-  box-shadow: 9px 7px 0px 0px #000000;
-  border: 4px solid #000000;
-  border-radius: 5px;
-}
-
-#sign_in_btn, #sign_up_btn {
-  background-color: #ffffff;
-  padding: 8px;
-  border-radius: 5px;
-}
-
 .log_out {
   display: block;
   width: 60px;
@@ -120,6 +93,12 @@ p, h1, h2 {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+#sign_in_btn, #sign_up_btn {
+  background-color: #ffffff;
+  padding: 8px;
+  border-radius: 5px;
+}
+
 .support_message {
   max-width: 500px;
   text-align: center;
@@ -138,7 +117,63 @@ p, h1, h2 {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%; 
+  min-width: 300px; 
+  max-width: 600px;
+}
+
+/* Forms */
+
+.sign_up__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.username_password {
+  display: flex;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.passcode_input {
+  display: flex;
+  margin-top: 8px;
+}
+
+.passcode {
+  flex: 100%;
+}
+
+.sign_up_post_btn {
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* Messages */
+
+.message_form_content {
+  margin-top: 12px;
+  width: 75vw;
+}
+
+.message_box {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.new_message_btn_div {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.messages {
+  width: 75vw;
+  min-height: 200px;
+  background-color: #fff;
+  box-shadow: 9px 7px 0px 0px #000000;
+  border: 4px solid #000000;
+  border-radius: 5px;
 }
 
 .new_message_btn {
