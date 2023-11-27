@@ -90,7 +90,7 @@ p, h1, h2 {
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
 }
 
 #sign_in_btn, #sign_up_btn {
@@ -112,7 +112,12 @@ p, h1, h2 {
   padding-bottom: 0px;
 }
 
+/* Forms */
+
 .sign_up__content, .sign_in__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -121,17 +126,19 @@ p, h1, h2 {
   max-width: 600px;
 }
 
-/* Forms */
-
-#sign_up_form {
+#sign_up_form, #sign_in_form {
   width: 80%;
   margin: 12px auto;
 }
 
-.sign_up__content {
+#sign_in_form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+}
+
+#sign_in_form > * {
+  flex: 40%;
+  margin: 8px;
 }
 
 .username_password {
