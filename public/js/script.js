@@ -61,11 +61,11 @@ document.getElementById('sign_up_form').addEventListener('submit', async functio
       }
 
       const signUpForm = document.getElementById('sign_up_form');
-      const errorsDiv = document.createElement("div");
+      const errorsDiv = document.createElement("ul");
       errorsDiv.id = 'sign_up_errors';
 
       for (let i = 0; i < data.errors.length; i++) {
-        const errorElement = document.createElement("p");
+        const errorElement = document.createElement("li");
         errorElement.innerText = data.errors[i].msg;
 
         errorsDiv.appendChild(errorElement);

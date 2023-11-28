@@ -16,6 +16,9 @@ p, h1, h2 {
   font-weight: bold;
 }
 
+ul > li {
+  color: red;
+}
 
 /* Header & title */
 
@@ -115,67 +118,113 @@ p, h1, h2 {
 /* Forms */
 
 .sign_up__content, .sign_in__content {
+  background-color: #fefefe;
+  padding: 12px;
+  margin: 15% auto;
+  border-radius: 5px;
+  box-shadow: 5.4px 10.7px 10.7px hsl(0deg 0% 0% / 0.33);
+  border: 1px solid #888;
+  max-width: 400px;
+  min-width: 375px;
+}
+
+.sign_up__content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  min-width: 300px; 
-  max-width: 600px;
-}
-
-#sign_up_form, #sign_in_form {
-  width: 80%;
-  margin: 12px auto;
-}
-
-.login_input {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.login_input > input {
-  min-width: 12px;
-  flex-grow: 50;
-}
-
-.login_btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.login_btn > button {
-  width: 100%;
 }
 
 .username_password {
   display: flex;
   margin-top: 8px;
-  gap: 12px;
+}
+
+.sign_up_username {
+  border-top-left-radius: 5px;
+  border: #adadad solid 1px;
+}
+
+.sign_up_password {
+  border-top-right-radius: 5px;
+  border: #adadad solid 1px;
 }
 
 .username_password > input {
   flex: 1;
-  max-width: calc(50% - 6px);
-}
-
-.passcode_input {
-  display: flex;
-  margin-top: 8px;
+  background-color: #f0f0f0;
+  height: 28px;
+  max-width: 200x;
+  width: 80%;
+  min-width: 50px;
 }
 
 .passcode {
-  flex: 100%;
+  display: flex;
 }
 
-.sign_up_post_btn {
+.passcode_input {
+  flex: 100%;
+  background-color: #f0f0f0;
+  height: 28px;
+  max-width: 200x;
+  width: 80%;
+  min-width: 50px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: #adadad solid 1px;
+}
+
+.sign_in_title {
+  display: flex;
+  justify-content: center;
   margin-top: 8px;
   width: 100%;
+}
+
+#sign_up_form, #sign_in_form {
+  margin: 12px auto;
+}
+
+.sign_up_btn_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign_in_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#sign_in_form > input {
+  background-color: #f0f0f0;
+  height: 28px;
+}
+
+.sign_in_username {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border: #adadad solid 1px;
+}
+
+.sign_in_password {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top: none;
+  border-left: #adadad solid 1px;
+  border-right: #adadad solid 1px;
+  border-bottom: #adadad solid 1px;
+}
+
+#sign_in_form > button, .sign_up_post_btn {
+  margin-top: 8px;
+  height: 28px;
+  width: 72px;
+  border: none;
+  border-radius: 5px;
+  background: rgb(218,172,41);
+  background: linear-gradient(0deg, rgba(218,172,41,1) 0%, rgba(245,190,73,1) 31%);
 }
 
 /* Messages */
