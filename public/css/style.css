@@ -93,7 +93,18 @@ ul > li {
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+  background-color: rgb(43 37 19 / 92%); /* Dark Orange w/ opacity */
+}
+
+.close_sign_in, .close_sign_up {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close_sign_in:hover, .close_sign_up:hover {
+  cursor: pointer;
 }
 
 #sign_in_btn, #sign_up_btn {
@@ -119,19 +130,20 @@ ul > li {
 
 .sign_up__content, .sign_in__content {
   background-color: #fefefe;
-  padding: 12px;
+  padding-right: 8px;
+  padding-left: 8px;
   margin: 15% auto;
   border-radius: 5px;
   box-shadow: 5.4px 10.7px 10.7px hsl(0deg 0% 0% / 0.33);
-  border: 1px solid #888;
   max-width: 400px;
   min-width: 375px;
 }
 
-.sign_up__content {
+.content_flex {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .username_password {
@@ -219,6 +231,7 @@ ul > li {
 
 #sign_in_form > button, .sign_up_post_btn {
   margin-top: 8px;
+  margin-bottom: 12px;
   height: 28px;
   width: 72px;
   border: none;
