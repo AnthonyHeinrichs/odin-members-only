@@ -131,14 +131,26 @@ p, h1, h2 {
   margin: 12px auto;
 }
 
-#sign_in_form {
+.login_input {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-#sign_in_form > * {
-  flex: 40%;
-  margin: 8px;
+.login_input > input {
+  min-width: 12px;
+  flex-grow: 50;
+}
+
+.login_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.login_btn > button {
+  width: 100%;
 }
 
 .username_password {
@@ -203,7 +215,14 @@ p, h1, h2 {
 }
 
 .message_details {
-  min-width: 180px;
+  min-width: 120px;
+  max-width: 120px;
+  white-space: nowrap;
+}
+
+.message_name {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .date_and_time {
