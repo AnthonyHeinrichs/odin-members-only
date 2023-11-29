@@ -136,7 +136,7 @@ ul > li {
   border-radius: 5px;
   box-shadow: 5.4px 10.7px 10.7px hsl(0deg 0% 0% / 0.33);
   max-width: 400px;
-  min-width: 375px;
+  min-width: 350px;
 }
 
 .content_flex {
