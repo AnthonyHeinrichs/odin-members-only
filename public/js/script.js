@@ -83,3 +83,47 @@ document.getElementById('sign_up_form').addEventListener('submit', async functio
   }
 });
 
+// Checking validation for sign in form
+document.getElementById('sign_in_form').addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const formData = new URLSearchParams(new FormData(this));
+
+  try {
+    // Check if sign-in was successful before refreshing the page
+    const signInResponse = await fetch('/log-in', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+
+    const signInData = await signInResponse.json();
+
+    if (signInData.success) {
+      // Only refresh the page if the sign-in was successful
+      window.location.href = '/';
+    } else {
+      // Handle unsuccessful sign-in (show error messages, etc.)
+
+      const prevErrors = document.getElementById('sign_in_error');
+      
+      if (prevErrors) {
+        prevErrors.remove();
+      }
+
+      const signInForm = document.getElementById('sign_in_form');
+      const errorsDiv = document.createElement("div");
+      errorsDiv.id = 'sign_in_error';
+
+      const errorElement = document.createElement("p");
+      errorElement.innerText = signInData.message;
+
+      errorsDiv.appendChild(errorElement);
+
+      signInForm.appendChild(errorsDiv);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});

@@ -85,13 +85,24 @@ app.get("/", (req, res) => {
   res.render("index", { user: req.user, messages: req.messages });
 });
 
-app.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
-  })
-);
+app.post("/log-in", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      // Handle failure and return error message
+      return res.status(401).json({ success: false, message: info.message });
+    }
+    // If authentication is successful, log in the user
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.json({ success: true, message: 'Login successful' });
+    });
+  })(req, res, next);
+});
 
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
