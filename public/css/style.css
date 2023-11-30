@@ -7,7 +7,7 @@ body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
-p, h1, h2 {
+p, h1, h2, form {
   padding: 0px;
   margin: 0px;
 }
@@ -258,12 +258,24 @@ ul > li {
 
 .message_form_content {
   margin-top: 12px;
-  width: 75vw;
+  width: calc(95vw + 8px);
+  max-width: 1208px;
 }
 
 .message_box {
-  margin-top: 12px;
+  margin: 12px 0px 8px 0px;
+  padding: 8px;
   width: 100%;
+  height: 64px;
+  border-radius: 5px;
+  box-shadow: 4px 4px 0px 0px #000000;
+  border: 4px solid #000000;
+  transition: border 400ms;
+}
+
+.message_box:focus {
+  border: 4px solid #643900;
+  outline: none;
 }
 
 .new_message_btn_div {
@@ -274,7 +286,7 @@ ul > li {
 
 .messages {
   width: 95vw;
-  margin: 0px 16px 8px 12px;
+  margin: 0px 6px 8px 8px;
   max-width: 1200px;
   min-height: 200px;
   background-color: #fff;
