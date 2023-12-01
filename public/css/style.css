@@ -2,9 +2,19 @@
 
 /* Main app styles */
 
-body {
+html, body {
   background-color: #F5BE49;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 p, h1, h2, form {
@@ -292,7 +302,7 @@ ul > li {
 
 .messages {
   width: 95vw;
-  margin: 0px 6px 8px 8px;
+  margin: 12px 6px 8px 8px;
   max-width: 1200px;
   min-height: 200px;
   background-color: #fff;
@@ -331,4 +341,20 @@ ul > li {
 
 .no_name, .no_date, .no_time {
   filter: blur(8px);
+}
+
+/* Footer */
+
+footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+}
+
+.github {
+  height: 18px;
+  margin-left: 4px;
 }

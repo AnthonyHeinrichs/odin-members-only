@@ -82,7 +82,9 @@ app.use(asyncHandler(async (req, res, next) => {
 }));
 
 app.get("/", (req, res) => {
-  res.render("index", { user: req.user, messages: req.messages });
+  const year = new Date().getFullYear()
+
+  res.render("index", { user: req.user, messages: req.messages, year: year});
 });
 
 app.post("/log-in", (req, res, next) => {
