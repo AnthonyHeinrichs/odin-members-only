@@ -1,6 +1,9 @@
 {
   "name": "odin-members-only",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18.16.1"
+  },
   "description": "Node application for practicing authentication",
   "main": "app.js",
   "scripts": {
