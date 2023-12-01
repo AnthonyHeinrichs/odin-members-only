@@ -9,6 +9,9 @@ const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const hashPassword = require("./utils/passwordUtils")
 
+// Use PORT provided in environment or default to 3000
+const port = process.env.PORT || 3000;
+
 // Bring in models
 const User = require("./models/user");
 const Message = require("./models/message");
@@ -202,4 +205,7 @@ app.post("/new-message", async(req, res, next) => {
   }
 })
 
-app.listen(3000, () => console.log("App listening on port 3000"));
+// Listen on `port` and 0.0.0.0
+app.listen(port, "0.0.0.0", function () {
+  // ...
+});
