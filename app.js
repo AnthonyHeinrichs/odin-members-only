@@ -19,7 +19,7 @@ require('dotenv').config()
 const app = express()
 
 // Set up mongoose connection
-const mongoDb = process.env.MONGO_CONNECTION_STRING;
+const mongoDb = process.env.MONGODB_URI;
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
